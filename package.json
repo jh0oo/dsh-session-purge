@@ -1,0 +1,101 @@
+{
+  "name": "dsh-session-purge",
+  "version": "0.1.9",
+  "description": "在侧边栏工作区上方新增「删除会话」入口：列出工作区全部会话，多选、全选，先移入回收站（可还原），彻底删除时清空会话日志、投影缓存、会话策略、工作区登记与相关记账，并清理由它独占的附件。",
+  "type": "module",
+  "main": "index.js",
+  "icon": "./icon.svg",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "locale/*.json",
+    "cordis.patch.yml",
+    "icon.svg",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "test",
+    "tools"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jh0oo/dsh-session-purge.git"
+  },
+  "homepage": "https://github.com/jh0oo/dsh-session-purge#readme",
+  "author": {
+    "name": "马发涛",
+    "email": "1919200850@qq.com"
+  },
+  "bugs": {
+    "url": "https://github.com/jh0oo/dsh-session-purge/issues"
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    },
+    "compatibility": {
+      "dsh": ">=0.2.0-rc.2 <0.3.0",
+      "node": ">=22.19",
+      "profiles": [
+        "web",
+        "desktop"
+      ]
+    }
+  },
+  "dshhub": {
+    "category": "session",
+    "displayName": {
+      "en": "Session Purge",
+      "zh": "删除会话"
+    },
+    "summary": {
+      "en": "Pick sessions from the workspace list and delete them — to a recycle bin that restores byte-for-byte, or for good.",
+      "zh": "从工作区会话列表里多选删除：先进可完整还原的回收站，确认后再彻底清除日志、缓存、登记与记账。"
+    },
+    "capabilities": [
+      "fs-read",
+      "fs-write",
+      "network"
+    ],
+    "capabilityRedLines": {
+      "en": [
+        "Deletes only DSH-owned per-session records; documents you created inside your workspace are never touched.",
+        "Refuses running sessions, the session you are currently viewing, and any path outside the DSH data directory.",
+        "Registers no tool and no command — the only entry point is the UI, and every destructive call needs an explicit confirm."
+      ],
+      "zh": [
+        "只删除 DSH 自己的会话数据，你在工作区里创建的文档不会被删除。",
+        "拒绝运行中的会话、当前正在对话的会话，以及 DSH 数据目录以外的路径。",
+        "不注册 tool 与 command，唯一入口是界面，每个破坏性请求都必须显式确认。"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "test": "node test/atomic.test.mjs && node test/schedule.test.mjs && node test/trash.test.mjs && node test/order.test.mjs && node test/e2e.test.mjs && node test/guard.test.mjs && node test/restore-unknown.test.mjs"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "session",
+    "delete",
+    "purge",
+    "recycle-bin",
+    "trash",
+    "restore"
+  ],
+  "license": "MIT"
+}

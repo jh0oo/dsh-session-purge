@@ -1,0 +1,7 @@
+# dsh-session-purge — bundle patch layer
+#
+# Makes the package a standard DSH profile bundle:
+#   dsh plugin --profile <p> add dsh-session-purge
+- insert:
+    - id: session-purge
+      name: 'dsh-session-purge'

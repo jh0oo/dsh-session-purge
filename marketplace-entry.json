@@ -1,0 +1,28 @@
+{
+  "name": "dsh-session-purge",
+  "owner": "jh0oo",
+  "url": "https://github.com/jh0oo/dsh-session-purge",
+  "category": "session",
+  "description": {
+    "en": "Adds a Delete-sessions entry above the workspace list that opens a page listing every session in the workspace, styled like the sidebar itself. Tick rows (tick again to untick), use select-all in the top-right, then Delete in the bottom-right: the sessions move into a recycle bin that restores them byte-for-byte, and only a second, explicit purge clears the session log directory, projection cache, session policy record, workspace membership, cost-meter rows and the attachments nothing else references. Refuses running sessions, the session you are currently viewing, and any path outside the DSH data directory; every destructive call needs confirm:true and the plugin registers no tool and no command.",
+    "zh": "在工作区列表上方新增「删除会话」入口，点开是一个按侧栏样式排布的会话清单：单击选中、再点取消、右上角一键全选、右下角删除。删除先进回收站（可逐字节完整还原），只有在回收站里二次确认「彻底删除」才会清空会话日志目录、投影缓存、会话策略记录、工作区登记、成本记账与无人再引用的附件。拒绝运行中的会话、当前正在对话的会话与 DSH 数据目录以外的路径；每个破坏性请求都必须 confirm:true，插件不注册 tool 也不注册 command。"
+  },
+  "npm": "dsh-session-purge",
+  "version": "0.1.9",
+  "install": "dsh plugin --profile web add dsh-session-purge",
+  "added": "2026-11-19",
+  "icon": "https://raw.githubusercontent.com/jh0oo/dsh-session-purge/main/icon.svg",
+  "capabilities": [
+    "fs-read",
+    "fs-write",
+    "network"
+  ],
+  "capabilityRedLines": [
+    "deletes files inside the DSH data directory on request (session logs, caches, ledger rows)"
+  ],
+  "screenshots": [
+    "https://raw.githubusercontent.com/jh0oo/dsh-session-purge/main/docs/screenshot-list.png",
+    "https://raw.githubusercontent.com/jh0oo/dsh-session-purge/main/docs/screenshot-confirm.png",
+    "https://raw.githubusercontent.com/jh0oo/dsh-session-purge/main/docs/screenshot-selected.png"
+  ]
+}

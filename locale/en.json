@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Delete sessions (dsh-session-purge)",
+    "description": "Adds a \"Delete sessions\" entry above the workspace list in the sidebar. It lists every session of the workspace, supports click-to-select / click-again-to-deselect and a select-all button in the top-right, with the delete button in the bottom-right. Deleting moves sessions to a recycle bin that restores them byte-for-byte; purging from there erases the session logs, projection cache, session policy, workspace registration and related cost entries, plus the attachments only those sessions referenced.",
+    "detail": "README.md"
+  }
+}

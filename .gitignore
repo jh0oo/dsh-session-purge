@@ -1,0 +1,11 @@
+# build output
+*.tgz
+
+# scratch harnesses (local testing only, not part of the plugin)
+_scratch/
+
+# ad-hoc screenshots pasted at the package root; the curated ones live in docs/
+/*.png
+
+# dependencies
+node_modules/
