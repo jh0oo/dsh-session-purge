@@ -825,7 +825,7 @@ window.__ModuleLoader__.load({
             'aria-selected': state.tab === 'trash' ? 'true' : 'false',
             onClick: function () {
               if (store.get().tab === 'trash') return;
-              store.set({ tab: 'trash', selected: {}, trashPhase: 'idle' });
+              store.set({ tab: 'trash', selected: {}, trashPhase: 'idle', trashToken: (store.get().trashToken || 0) + 1 });
             }
           },
           t('tabTrash'),
@@ -885,11 +885,16 @@ window.__ModuleLoader__.load({
         [store]
       );
 
+      /*
+       * `trashToken` is bumped by whoever changes the bin (page, restore, purge,
+       * empty). Keying the effect on it means the list re-reads itself, instead
+       * of showing stale rows until the panel is closed and reopened.
+       */
       useEffect(
         function () {
-          if (store.get().trashPhase === 'idle') loadTrash(false);
+          loadTrash(false);
         },
-        [store, loadTrash]
+        [state.trashToken, loadTrash]
       );
 
       var restoreOne = function (entry) {
@@ -912,7 +917,7 @@ window.__ModuleLoader__.load({
               fill(t('restoreDone'), { n: done }) + (warned.length > 0 ? ' · ' + warned.join('；') : '')
             );
             setTimeout(function () {
-              store.set({ trashPhase: 'idle', phase: 'stale' });
+              store.set({ trashPhase: 'idle', phase: 'stale', trashToken: (store.get().trashToken || 0) + 1 });
             }, 0);
           })
           .catch(function (error) {
@@ -1164,7 +1169,7 @@ window.__ModuleLoader__.load({
                 }
               });
               setTimeout(function () {
-                store.set({ trashPhase: 'idle', phase: 'stale' });
+                store.set({ trashPhase: 'idle', phase: 'stale', trashToken: (store.get().trashToken || 0) + 1 });
               }, 0);
             })
             .catch(function (error) {
@@ -1199,7 +1204,7 @@ window.__ModuleLoader__.load({
                 }
               });
               setTimeout(function () {
-                store.set({ trashPhase: 'idle', phase: 'stale' });
+                store.set({ trashPhase: 'idle', phase: 'stale', trashToken: (store.get().trashToken || 0) + 1 });
               }, 0);
             })
             .catch(function (error) {
@@ -1255,7 +1260,7 @@ window.__ModuleLoader__.load({
               /* best effort */
             }
             setTimeout(function () {
-              store.set({ phase: 'stale', trashPhase: 'idle' });
+              store.set({ phase: 'stale', trashPhase: 'idle', trashToken: (store.get().trashToken || 0) + 1 });
             }, 0);
           })
           .catch(function (error) {
@@ -1455,6 +1460,7 @@ window.__ModuleLoader__.load({
         /* recycle bin */
         tab: 'sessions',
         trashPhase: 'idle',
+        trashToken: 0,
         trash: null,
         trashError: '',
         trashBusy: '',

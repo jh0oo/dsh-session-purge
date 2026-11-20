@@ -208,7 +208,7 @@ node tools/repair-ledger.mjs --apply --home "D:\other\.dsh"
 
 ```bash
 # 在插件目录下打包（tarball 必须带 package/ 前缀）
-tar -czf dsh-session-purge-0.1.8.tgz --transform 's,^,package/,' \
+tar -czf dsh-session-purge-0.1.10.tgz --transform 's,^,package/,' \
   index.js client.js lib locale cordis.patch.yml icon.svg README.md CHANGELOG.md LICENSE package.json test tools
 ```
 
